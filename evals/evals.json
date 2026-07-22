@@ -1,0 +1,82 @@
+{
+  "skill_name": "ikevss-zh-friendly",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把这些英文技能的描述翻译成中文，我看不懂",
+      "expected_output": "触发 zh 子命令，输出扫描摘要和 dry-run 预览",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我装了哪些技能？环境里有什么工具可以用？帮我看看",
+      "expected_output": "触发 scan 子命令，输出各工具的能力统计和能力清单预览",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "agent 太少了，推荐几个合适的智能体人设给我",
+      "expected_output": "触发 scan --suggest-agents，推断用户领域并交互式推荐 agent",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "有些技能没有 description，帮我补上",
+      "expected_output": "触发 zh 子命令，检测缺失 description 并生成中文描述",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "把 CLAUDE.md 里的能力清单更新一下",
+      "expected_output": "触发 scan，精准替换能力清单章节",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "汉化的时候保留英文原版，别覆盖",
+      "expected_output": "触发 zh --overlay 模式，新增 description_zh 字段而非覆盖 description",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "只汉化 TRAE Work 的技能，其他的先不动",
+      "expected_output": "触发 zh --scope trae，只处理 ~/.trae/skills/ 下的文件",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "帮我看看汉化效果再决定要不要执行",
+      "expected_output": "触发 zh --dry-run（默认行为），输出预览不执行",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "翻译代码注释成中文",
+      "expected_output": "不应触发此技能（反向排除：翻译代码注释不是技能描述汉化）",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "帮我配置 MCP 服务器",
+      "expected_output": "不应触发此技能（反向排除：配置 MCP 不是扫描能力）",
+      "files": []
+    {
+      "id": 11,
+      "prompt": "这些技能的名字全是英文，能不能显示中文名",
+      "expected_output": "触发 zh 子命令，生成 display_name 中文显示名",
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "我电脑上装了哪些命令行工具，git、node这些",
+      "expected_output": "触发 scan，检测 CLI 工具并纳入能力清单",
+      "files": []
+    },
+    {
+      "id": 13,
+      "prompt": "各个工具都装了哪些 agent，帮我统计一下",
+      "expected_output": "触发 scan，输出各工具的 agent 数量统计",
+      "files": []
+    }
+  ]
+}
