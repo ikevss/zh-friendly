@@ -231,68 +231,11 @@ ikevss-zh-friendly
 </div>
 </section>
 
-<section id="problem">
-<div class="container">
-<div class="section-label reveal">先说背景</div>
-<div class="section-head reveal" style="margin-bottom:clamp(48px,8vh,72px)">
-<h2>这事得从头说</h2>
-<p>有一天我数了一下斜杠菜单——352 个技能。Generate mermaid diagrams、Deploy application、Executive summary generator……像猜谜一样，你得点进去试。那得试。试对了就知道，试错了白费一次。</p>
-</div>
-
-<div class="zigzag reveal">
-<div>
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5 3 4 3 4-3 4-3"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
-<h3>第一步：猜</h3>
-<p>你看到 Generate mermaid diagrams。mermaid 是什么意思？美人鱼？画图的？数据库？你得进去试。试对了——哦画流程图的。试错了——白费一次。</p>
-<div class="result">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-现在它长这样：生成 Mermaid 图表 | 画流程图、时序图、架构图。不用试了，一看就知道。
-</div>
-</div>
-<div class="zigzag-img">
-<div style="background:var(--warm);border-radius:var(--radius-lg);padding:24px">
-<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint)">~/ claude-code/skills/</div>
-<div style="margin-top:8px;padding:8px 12px;background:var(--surface);border-radius:6px;font-size:13px;color:var(--muted);margin-bottom:4px">generate-mermaid — <span style="color:var(--accent)">不知道干嘛的</span></div>
-<div style="padding:8px 12px;background:var(--surface);border-radius:6px;font-size:13px;color:var(--muted);margin-bottom:4px">deploy-app — <span style="color:var(--accent)">不敢用</span></div>
-<div style="padding:8px 12px;background:var(--surface);border-radius:6px;font-size:13px;color:var(--muted)">code-review — <span style="color:var(--accent)">不确定什么时候触发</span></div>
-</div>
-</div>
-</div>
-
-<div class="zigzag reveal" style="margin-top:clamp(48px,8vh,80px)">
-<div>
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
-<h3>第二步：更离谱的</h3>
-<p>更离谱的是：你问它"你能干什么"，它是靠记忆在猜的。它连自己有多少技能都不知道。因为从来没人给它写一份清单。</p>
-<div class="result">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-翻完之后还能帮你做一件事：扫一遍你所有 AI 工具，生成一份能力清单，写进配置文件。下次你开新会话，AI 一看——"哦，我有这么多东西。""
-</div>
-</div>
-<div class="zigzag-img">
-<div style="background:var(--warm);border-radius:var(--radius-lg);padding:24px">
-<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-bottom:12px">~/.claude/CLAUDE.md</div>
-<div style="font-size:12px;color:var(--green);font-weight:600;margin-bottom:6px">&lt;!-- CAPABILITY_LIST_START --&gt;</div>
-<div style="font-size:13px;line-height:1.8;color:var(--ink)">
-<b>Claude Code</b> · Skills 352 · Agents 27 · MCP 0<br>
-<b>Codex</b> · Skills 23 · Agents 7<br>
-<b>TRAE Work</b> · Skills 101 · Agents 1 · MCP 1<br>
-<b>OpenClaw</b> · Skills 89<br>
-<b>CLI</b> · git gh npx node python docker
-</div>
-<div style="font-size:12px;color:var(--green);font-weight:600;margin-top:6px">&lt;!-- CAPABILITY_LIST_END --&gt;</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
 <section id="features">
 <div class="container">
-<div class="section-label reveal">能帮你做什么</div>
+<div class="section-label reveal">你能得到什么</div>
 <div class="section-head reveal" style="margin-bottom:clamp(40px,6vh,64px)">
-<h2>两件事</h2>
-<p>事情是这样的。我装了 352 个技能，每次打开斜杠菜单跟猜谜一样——这个名字大概管画图？那个好像是部署？得点进去试。试对了就好了。试错了就浪费一个来回。于是我写了这个，扫一遍，翻译成中文，一眼看懂。</p>
+<h2>六件事</h2>
 </div>
 <div class="feat reveal">
 <div class="feat-card">
@@ -403,6 +346,19 @@ ikevss-zh-friendly
 </div>
 </section>
 
+
+<section id="story" style="padding:clamp(40px,6vh,64px) 0">
+<div class="container">
+<div style="max-width:640px;margin:0 auto">
+<div class="section-label reveal">一个小编的故事</div>
+<div style="background:var(--warm);border-radius:var(--radius-lg);padding:clamp(20px,3vw,28px);margin-top:16px">
+<p style="font-size:14px;line-height:1.8;color:var(--muted)">
+有一天我数了一下斜杠菜单——352 个技能，名字全是英文。<strong>每次都要点进去试一下才知道干嘛的。</strong>试对了就好，试错了白费一次。更离谱的是，AI 自己也不知道有多少能力——它连一份清单都没有。于是我写了这个工具。扫一遍，翻成中文，一眼看懂。踩过的坑都写进了 <code style="font-family:JetBrains Mono,monospace;font-size:12px;color:var(--green);background:transparent">references/</code>，五方工程师对抗性评审过。
+</p>
+</div>
+</div>
+</div>
+</section>
 <section class="cta-section" style="text-align:center">
 <div class="container">
 <h2 class="reveal">以后打开斜杠菜单<br>每个技能你都知道是干嘛的</h2>
