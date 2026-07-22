@@ -111,11 +111,8 @@ scan 选项：
 ```
 [预览] 将修改以下文件：
   ✓ [SKILL]   ~/.claude/skills/example/SKILL.md
-    description: "Create mermaid diagrams" → "生成 Mermaid 图表 | 画流程图、时序图、mermaid、diagram"
   ✓ [COMMAND] ~/.claude/commands/deploy.md
-    description: "Deploy the application" → "部署应用 | 帮我发布、上线、deploy、推代码"
   ✓ [AGENT]   ~/.claude/agents/Explore.md
-    description: "General-purpose agent..." → "通用探索智能体 | 浏览代码、搜索文件、explore、find"
 ```
 
 如果 `--confirm` 模式，逐文件执行：
@@ -149,7 +146,6 @@ Agent 文件的正文是精心调校的 System Prompt，改动任何字符都可
 ```yaml
 ---
 name: example-skill
-description: "Generate mermaid diagrams"  # 英文原版保留
 description_zh: "生成 Mermaid 图表 | 画流程图、时序图、mermaid、diagram"  # 中文新增
 ---
 ```
