@@ -1,130 +1,175 @@
 # ikevss-zh-friendly
 
-**你的 AI 编程助手装了一堆英文技能，看不懂？不知道它能做什么？点一下，全变中文。**  
+> 你的 AI 装了一堆英文技能。你看不懂，它也不知道自己有多少能力。
+> 点一下，全变中文。
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Skills.sh](https://img.shields.io/badge/skills.sh-ikevss_zh_friendly-6B46C1)](https://www.skills.sh/)
-
----
-
-## 一句话说清楚
-
-你把 ChatGPT、Claude Code、TRAE 这些 AI 工具当副驾驶用，但它们装的那些"技能"都是英文的——
-你看着一排 `Generate mermaid diagrams`、`Deploy the application`，不知道哪个干什么、什么时候用。
-
-**这个技能帮你一键搞定：扫出所有英文描述 → 翻译成中文 → 告诉 AI 自己有多少能力。**
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
+  <a href="https://www.skills.sh/"><img src="https://img.shields.io/badge/skills.sh-ikevss_zh_friendly-purple" alt="skills.sh"></a>
+</p>
 
 ---
 
-## 3 秒看效果
+## 为什么会有这个项目
 
-| 改之前 | 改之后 |
-|--------|--------|
-| `Generate mermaid diagrams for documentation` | `生成 Mermaid 图表 | 画流程图、时序图、架构图、mermaid、diagram、chart` |
-| `Deploy the application to production` | `部署应用 | 帮我发布、上线、deploy、推代码` |
-| `Code review skill for pull requests` | `代码审查 | review、检查代码、帮我看看代码、code review` |
+我装了 352 个 skills、27 个 agents、无数 MCP 和 CLI 工具。
 
-改完之后，跟 AI 说"帮我画个流程图"，它也听得懂了。
+但每次打开斜杠菜单，一排 `Generate mermaid diagrams`、`Deploy the application`、`Executive summary generator`……
 
----
+**我不知道哪个是干什么的。AI 自己也不知道自己有多少能力。**
 
-## 我能做什么
+所以我写了这个技能。它做的事很简单：扫一遍你电脑上所有的 AI 工具，把英文描述翻译成中文，生成一张能力清单告诉 AI"你有这些本事"。
 
-两件事，都只要一句话：
-
-| 我想…… | 我输入 | 效果 |
-|---------|--------|------|
-| 把英文技能翻译成中文 | `/ikevss-zh-friendly zh` | 扫描所有工具 → 翻译描述 → 不改任何代码 |
-| 看看 AI 到底有哪些能力 | `/ikevss-zh-friendly scan` | 扫描所有工具 → 生成一张能力清单 |
-
-### 还有这些场景也能用
-
-- **有些技能连描述都没有** → 自动帮你生成一个
-- **装了太多技能不知道哪个是干什么的** → 全部翻译成中文，一眼看明白
-- **Agent 太少，想让它更聪明** → 自动推荐适合你的 Agent 人设（从 268 个中文人设库里挑）
-- **怕翻译完之后更新又变回英文** → 支持"叠加模式"，新加一个中文字段，不动原文
-- **只想看某个工具的翻译效果** → `/ikevss-zh-friendly zh --scope trae --dry-run` 先预览不改
+踩过的坑都在 `references/` 里写成了规则：哪些字段不能碰、符号链接怎么处理、Agent 正文为什么一个字都不能改。
 
 ---
 
-## 怎么安装
-
-打开终端，输一行命令：
+## 30 秒开始
 
 ```bash
 npx skills add ikevss/ikevss-zh-friendly
 ```
 
-或者直接从 [skills.sh](https://www.skills.sh/) 搜索 `ikevss-zh-friendly` 安装。
+装完直接跟 AI 说：
 
----
-
-## 怎么用
-
-安装完，在 Claude Code 里输入 `/ikevss` 就能看到这个技能。然后：
-
-```bash
-# 第一次用，先预览（不改任何文件）
-/ikevss-zh-friendly zh
-
-# 确认没问题，执行翻译
-/ikevss-zh-friendly zh --confirm
-
-# 扫描你的 AI 环境有哪些能力
-/ikevss-zh-friendly scan
+```
+帮我把这些英文技能翻译成中文
 ```
 
-**不会改坏你的文件**：默认只预览不改东西，确认了才执行，修改前还会自动备份。
+或者精确一点：
+
+```
+/ikevss-zh-friendly zh
+```
+
+**默认只看不改。** 确认没问题再 `--confirm`。
 
 ---
 
-## 都支持哪些 AI 工具
+## 效果
 
-装了这个技能，它会帮你扫描和翻译这些工具里的英文内容：
+| 改之前 | 改之后 |
+|--------|--------|
+| `Generate mermaid diagrams for documentation` | `生成 Mermaid 图表 \| 画流程图、架构图、mermaid、diagram` |
+| `Deploy the application to production` | `部署应用 \| 帮我发布、上线、deploy、推代码` |
+| `Code review skill for pull requests` | `代码审查 \| review、检查代码、帮我看看代码、code review` |
 
-| 工具 | 谁出的 | 能翻译 | 能扫描 |
-|------|--------|:------:|:------:|
+不只是翻译。**每个描述里加了 3-5 个你可能会说的中文口语表达**，让 AI 更容易听懂你。
+
+还有：
+- 🏷 自动生成中文 `display_name`，斜杠菜单里不再只有英文名
+- 📋 扫出所有缺失 description 的技能，根据内容补充
+- 🔍 发现你环境里的 CLI 工具（git、node、docker……）
+- 🧠 连 Agent 人都帮你算进去了（Claude Code 27 个、Codex 7 个、OpenCode 7 个……）
+
+---
+
+## 它还能干什么
+
+🤖 **推荐 Agent 人设** — 你的 agents 太少？扫一遍你的 CLAUDE.md、对话记录、已装 skills、记忆系统和工作习惯，猜出你大概做什么的，然后从 [268 个中文 agent 人设库](https://github.com/ikevss/agency-agents-zh)里推荐适合你的。
+
+🔒 **三种汉化安全模式**：
+- 默认模式 — 直接翻译（改前备份）
+- `--overlay` 模式 — 不改原文，新加 `description_zh` 字段（不怕 marketplace 更新覆盖）
+- 符号链接选项 C — 断开链接创建独立副本再汉化（完全不碰源文件）
+
+🛡 **Agent 正文保护** — 翻译完逐字符对比 System Prompt，哪怕多了一个空格也会从备份恢复。
+
+---
+
+## 适合谁
+
+| ✅ 适合 | ❌ 不适合 |
+|---------|---------|
+| 英语一般但想用好 AI 工具的人 | 所有技能描述已经是中文了 |
+| 装了几十个 skills 记不住哪个是干什么的 | 你只用一两个技能 |
+| 想让 AI 像中文助理一样跟你对话 | 你喜欢看英文界面 |
+| 同时用好几个 AI 工具（Claude Code / TRAE / Codex） | — |
+
+---
+
+## 触发方式
+
+以下任何一句都能触发这个技能：
+
+> "帮我把这些英文技能翻译成中文"
+> "我装了哪些技能？AI 环境里有什么工具？"
+> "agent 太少了，推荐几个"
+> "有些技能连描述都没有，帮我补上"
+> "更新一下能力清单"
+
+不用说 `/ikevss-zh-friendly`，直接说人话就行。
+
+---
+
+## 支持哪些 AI 工具
+
+| 工具 | 出品方 | 汉化 | 扫描 |
+|------|--------|:--:|:--:|
 | Claude Code | Anthropic | ✅ | ✅ |
 | TRAE Work | 字节跳动 | ✅ | ✅ |
 | Codex | OpenAI | ✅ | ✅ |
 | Cursor | Cursor Inc | ✅ | ✅ |
-| OpenCode | 开源社区 | ✅ | ✅ |
+| OpenCode | 开源 | ✅ | ✅ |
 | Windsurf | Codeium | ✅ | ✅ |
 | WorkBuddy | 腾讯 | ✅ | ✅ |
 | Antigravity | Google | — | ✅ |
-| OpenClaw | 开源社区 | ✅ | ✅ |
+| OpenClaw | 开源 | ✅ | ✅ |
 
 ---
 
-## 为什么放心用
+## 它是怎么工作的
 
-- **默认只看不改** — 不加 `--confirm` 绝不碰你的文件
-- **改前先备份** — 每个被改的文件都有备份，随时恢复
-- **Agent 正文绝对不动** — 只翻译给人看的描述，AI 的内部指令一个字不改
-- **不改文件名和目录** — 只动描述文字，不影响工具的正常运行
-- **新机器试过才发布** — 已在真实电脑上跑通
+不是什么大语言模型翻译 API，就是一个 Claude Code 技能——**一组写好的指令和规则**。
+
+它读取你电脑上各工具的 SKILL.md 文件，找到 `description` 字段，按规则翻译成中文，再写回去。翻译时会参考一个 60+ 词的术语表，保证"commit"不被翻译成"提交"、"frontmatter"不被翻译成"前置物质"。
+
+扫描部分的 adapter 设计是在五位工程师（Claude / Codex / OpenCode / OpenClaw / Harness）的对抗性评审下改出来的——每个人都在挑"你这个路径不对""这个格式不兼容""这个字段不能动"。
 
 ---
 
-## 谁在用、谁适合用
+## 安装
 
-- 你用 Claude Code / TRAE / Codex / Cursor 但英语不太好
-- 你装了十几个 AI 技能但记不住哪个是干什么的
-- 你想让 AI 用起来更像"中文助理"而不是"英文工具"
-- 你是金融/法律/教育/设计从业者，用 AI 但不想花时间学英语术语
+```bash
+npx skills add ikevss/ikevss-zh-friendly
+```
+
+或手动：
+
+```bash
+git clone https://github.com/ikevss/ikevss-zh-friendly.git ~/.claude/skills/ikevss-zh-friendly
+```
+
+---
+
+## 常见问题
+
+**汉化后技能还能触发吗？**
+
+能。翻译时保留了英文关键词和口语表达。实测在新电脑上跑通了 14 个技能汉化，`/skills` 列表正常显示。
+
+**会把我的 Agent 改坏吗？**
+
+不会。Agent 文件的正文（System Prompt）一个字不动。翻译完会逐字符对比校验——多一个空格都会从备份恢复。
+
+**只翻译 Claude Code？还是其他工具也管？**
+
+都管。TRAE Work、Codex、OpenCode、Cursor、Windsurf、WorkBuddy、OpenClaw——只要装了就能扫。Antigravity 因为格式不同只扫描不修改。
+
+**翻译完以后更新工具会被覆盖吗？**
+
+marketplace 来源的技能会。`--overlay` 模式可以避免——不改原 description，新加 `description_zh` 字段。
 
 ---
 
 ## 关于作者
 
-我是 ikevss，一个用 AI 解决实际问题的开发者。这个技能是为了让我自己——以及所有和我一样英语不够好、但想用好 AI 工具的中文用户——能更方便地用 AI。
+我是 [ikevss](https://github.com/ikevss)，一个英语不好但想用好 AI 工具的开发者。这个技能是我自己每天用的，所以规则写得比较保守——默认 dry-run、改前备份、有问题立即恢复。
 
-如果你觉得有用，可以在 [skills.sh](https://www.skills.sh/) 上给个 ⭐，或者在 GitHub 上提 issue 告诉我哪里还可以更好。
+如果觉得有用，在 [skills.sh](https://www.skills.sh/) 或 GitHub 上给个 ⭐。有问题直接提 issue。
 
 ---
 
-**让 AI 工具说流利中文，从这一条命令开始。**
+## License
 
-```bash
-/ikevss-zh-friendly zh
-```
+MIT © 2026 ikevss
