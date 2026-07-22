@@ -162,14 +162,6 @@ marketplace 来源的技能会。`--overlay` 模式可以避免——不改原 d
 
 ---
 
-## 关于作者
-
-我是 [ikevss](https://github.com/ikevss)，一个英语不好但想用好 AI 工具的开发者。这个技能是我自己每天用的，所以规则写得比较保守——默认 预览、改前备份、有问题立即恢复。
-
-如果觉得有用，在 [skills.sh](https://www.skills.sh/) 或 GitHub 上给个 ⭐。有问题直接提 issue。
-
----
-
 ## License
 
 MIT © 2026 ikevss
