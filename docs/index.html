@@ -54,9 +54,9 @@ nav .links a:hover{color:var(--ink)}
 
 /* Hero — asymmetric split, left-aligned */
 .hero{padding:clamp(100px,16vh,160px) 0 clamp(60px,10vh,100px)}
-.hero .container{display:flex;flex-wrap:wrap;gap:clamp(32px,6vw,64px);align-items:center}
-.hero .hero-left{flex:1 1 320px;min-width:0}
-.hero .hero-right{flex:1 1 380px;min-width:0}
+.hero .container{display:flex;flex-wrap:nowrap;gap:clamp(32px,6vw,64px);align-items:center}
+.hero .hero-left{flex:1 1 48%;min-width:0}
+.hero .hero-right{flex:1 1 48%;min-width:0;display:flex;justify-content:flex-end}
 .hero .hero-left{}
 .hero .hero-tag{margin-bottom:16px;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--accent-soft);color:var(--accent);border-radius:20px;font-size:13px;font-weight:600;letter-spacing:.02em}
 .hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:900;letter-spacing:-.025em;line-height:1.08;margin-bottom:24px;color:var(--ink)}
@@ -82,7 +82,7 @@ nav .links a:hover{color:var(--ink)}
 .hero .stats b{display:block;font-size:clamp(22px,3vw,28px);color:var(--ink);font-weight:700;letter-spacing:-.02em}
 
 @media(max-width:768px){
-  .hero .container{grid-template-columns:1fr;gap:48px}
+  .hero .container{flex-wrap:nowrap;gap:48px}
   .hero .hero-right{order:-1}
   .hero .stats{flex-wrap:wrap;gap:20px}
   .preview-box{max-width:100%}
