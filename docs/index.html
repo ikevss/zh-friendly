@@ -3,375 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent 技能中文化 — 装了一堆英文技能描述看不懂？翻成中文一眼看懂</title>
-<meta name="description" content="Agent 技能中文化：把 Claude Code、TRAE、Codex 里所有英文技能描述翻译成中文。默认只看不碰。">
-<meta property="og:title" content="ikevss-zh-friendly">
-<meta property="og:description" content="装了一堆英文技能看不懂？一键翻译成中文。">
+<title>Agent 技能中文化 — 英文技能名，一眼看懂</title>
+<meta name="description" content="把你的 Claude Code、TRAE、Codex 里所有英文技能描述翻译成中文。默认只看不碰。">
+<meta property="og:title" content="Agent 技能中文化">
+<meta property="og:description" content="英文技能名，一眼看懂。">
 <meta property="og:url" content="https://ikevss.github.io/zh-friendly/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+:root{--bg:#050505;--surface:rgba(255,255,255,.03);--surface-2:rgba(255,255,255,.06);--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.15);--text:#fff;--text2:rgba(255,255,255,.6);--text3:rgba(255,255,255,.35);--accent:#34d399;--accent-deep:#10b981;--accent-soft:rgba(52,211,153,.1);--accent-glow:rgba(52,211,153,.25);--green:#4ade80;--green-soft:rgba(74,222,128,.1);--amber:#fbbf24;--amber-soft:rgba(251,191,36,.1);--radius-sm:8px;--radius:16px;--radius-lg:24px;--max:1200px;--ease:cubic-bezier(.32,.72,0,1);--ease-spring:cubic-bezier(.34,1.56,.64,1)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --canvas:#F9F9F7;
-  --surface:#FFFFFF;
-  --ink:#1a1a1a;
-  --muted:#78716c;
-  --faint:#a8a29e;
-  --line:#e7e5e4;
-  --warm:#f5f5f0;
-  --accent:#0f766e;
-  --accent-deep:#115e59;
-  --accent-soft:#f0fdfa;
-  --green:#166534;
-  --green-soft:#f0fdf4;
-  --amber:#92400e;
-  --amber-soft:#fffbeb;
-  --radius-sm:6px;
-  --radius:12px;
-  --radius-lg:20px;
-  --max:1200px
-}
-html{touch-action:manipulation;scroll-behavior:smooth}
-body{font-family:"Satoshi",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--canvas);line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none;transition:color .2s ease}
-a:hover{color:var(--accent-deep)}
-p{color:var(--muted)}
-code{font-family:"JetBrains Mono","Cascadia Code",monospace}
+html{scroll-behavior:smooth;touch-action:manipulation;color-scheme:dark}
+body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none;transition:color .4s var(--ease)}
+a:hover{color:var(--green)}
+p{color:var(--text2)}
+code{font-family:"JetBrains Mono","SF Mono",monospace}
 .svg-icon{flex-shrink:0}
-
-.container{max-width:var(--max);margin:0 auto;padding:0 clamp(24px,4vw,48px)}
-
-/* Nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:hsla(48,20%,97%,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-nav .container{display:flex;align-items:center;justify-content:space-between;height:56px}
-nav .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--ink);letter-spacing:-.01em}
-nav .logo svg{width:26px;height:26px}
-nav .links{display:flex;gap:28px;font-size:14px;font-weight:500}
-nav .links a{color:var(--muted)}
-nav .links a:hover{color:var(--ink)}
-
-/* Hero — asymmetric split, left-aligned */
-.hero{padding:clamp(100px,16vh,160px) 0 clamp(60px,10vh,100px)}
-.hero .container{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,80px);align-items:center}
-.hero .hero-left{min-width:0}
-.hero .hero-right{min-width:0;display:flex;justify-content:flex-end}
-.hero .hero-left{}
-.hero .hero-tag{margin-bottom:16px;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--accent-soft);color:var(--accent);border-radius:20px;font-size:13px;font-weight:600;letter-spacing:.02em}
-.hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:900;letter-spacing:-.025em;line-height:1.08;margin-bottom:24px;color:var(--ink)}
-.hero h1 mark{background:none;color:var(--accent)}
-.hero .hero-desc{font-size:clamp(15px,2vw,18px);line-height:1.7;color:var(--muted);max-width:440px;margin-bottom:32px}
-.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .15s ease;border:none;font-family:inherit;letter-spacing:-.01em}
-.btn:active{transform:translateY(1px)}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06)}
-.btn-primary:hover{background:var(--accent-deep);color:#fff;text-decoration:none;box-shadow:0 4px 14px rgba(15,118,110,.25)}
-.btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.btn-ghost:hover{background:var(--warm);text-decoration:none;border-color:var(--faint)}
-.preview-box{background:var(--ink);border-radius:var(--radius-lg);padding:clamp(20px,4vw,32px);color:#cdd6f4;font-size:13px;box-shadow:0 24px 60px rgba(0,0,0,.18);width:100%;max-width:460px}
-.preview-box .line{display:flex;margin-bottom:6px;font-family:"JetBrains Mono",monospace}
-.preview-box .old{color:#6c7086;text-decoration:line-through}
-.preview-box .new{color:#a6e3a1}
-.preview-box .arrow{color:var(--muted);margin:0 8px}
-.preview-box .prompt{color:#89b4fa;margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:12px}
-.preview-box .cursor{display:inline-block;width:8px;height:15px;background:#f5c2e7;animation:blink 1s step-end infinite;vertical-align:-2px;margin-left:2px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(52,211,153,.08),transparent),radial-gradient(ellipse 60% 40% at 80% 90%,rgba(52,211,153,.05),transparent)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.container{max-width:var(--max);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);position:relative;z-index:1}
+nav{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(255,255,255,.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:9999px;padding,.6rem 1.5rem;width:calc(100% - 3rem);max-width:6000px;transition:all .5s var(--ease)}
+nav .container{display:flex;align-items:center;justify-content:space-between;padding:0;width:100%;max-width:none}
+nav .logo{display:flex;align-items:center;gap,.6rem;font-weight:700;font-size:14px;color:var(--text);letter-spacing,-.01em}
+nav .logo svg{width:24px;height:24px}
+nav .links{display:flex;gap:1.5rem;font-size:13px;font-weight:500}
+nav .links a{color:var(--text2)}
+nav .links a:hover{color:var(--text}
+@media(max-width:640px){nav .links{display:none}}
+.hero{padding:clamp(120px,20vh,180px) 0 clamp(60px,10vh,100px);text-align:center}
+.hero .hero-tag{display:inline-flex;align-items:center;gap,.5rem;padding,.375rem 1rem;border-radius:9999px;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:600;letter-spacing,.15em;text-transform:uppercase;margin-bottom:1.5rem;border:1px solid rgba(52,211,153,.15)}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing,-.03em;line-height:1.05;margin-bottom:1.5rem}
+.hero h1 mark{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .hero-desc{font-size:clamp(1rem,1.5vw,1.125rem);line-height:1.7;color:var(--text2);max-width:480px;margin:0 auto 2.5rem}
+.hero .cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items-center;gap,.5rem;padding,.875rem 1.75rem;border-radius:9999px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:inherit;letter-spacing,-.01em;transition:all .5s var(--ease);position:relative;overflow:hidden}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-primary{background:var(--accent);color:#050505}
+.btn-primary:hover{background:var(--green);box-shadow:0 0 40px var(--accent-glow);color:#050505;text-decoration:none}
+.btn-primary .icon-wrap{width:28px;height:28px;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15);transition:transform .5s var(--ease-spring)}
+.btn-primary:hover .icon-wrap{transform:translateY(-2px) scale(1.05)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--surface-2);border-color:var(--border-strong);text-decoration:none}
+.hero-demo{margin-top:4rem;display:flex;justify-content:center}
+.preview-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(20px,4vw,32px);width:100%;max-width:520px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.preview-box .line{display:flex;margin-bottom:8px;font-family:"JetBrains Mono",monospace;font-size:13px}
+.preview-box .old{color:var(--text3);text-decoration:line-through}
+.preview-box .new{color:var(--green)}
+.preview-box .arrow{color:var(--text3);margin:0 12px}
+.preview-box .prompt{color:var(--accent);margin-top:20px;font-size:12px}
+.preview-box .cursor{display:inline-block;width:8px;height:15px;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:-2px;margin-left:2px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.hero .stats{margin-top:48px;display:flex;gap:40px}
-.hero .stats div{font-size:14px;color:var(--muted)}
-.hero .stats b{display:block;font-size:clamp(22px,3vw,28px);color:var(--ink);font-weight:700;letter-spacing:-.02em}
-
-@media(max-width:768px){
-  .hero .container{grid-template-columns:1fr;gap:48px}
-  .hero .hero-right{order:-1}
-  .hero .stats{flex-wrap:wrap;gap:20px}
-  .preview-box{max-width:100%}
-}
-
-/* Section */
-section{padding:clamp(56px,10vh,96px) 0}
-.section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:16px}
-.section-head h2{font-size:clamp(26px,3.5vw,40px);font-weight:900;letter-spacing:-.02em;margin-bottom:12px;line-height:1.2}
-.section-head p{font-size:16px;max-width:520px}
-
-/* Zig-zag problem/solution */
-.zigzag{display:grid;grid-template-columns:1fr 1fr;gap:clamp(48px,8vw,80px);align-items:center}
-.zigzag:nth-child(even) .zigzag-img{order:-1}
-.zigzag h3{font-size:clamp(20px,2.5vw,26px);font-weight:700;letter-spacing:-.02em;margin-bottom:12px;line-height:1.25}
-.zigzag p{font-size:15px;line-height:1.7}
-.zigzag .icon-wrap{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);border-radius:var(--radius);margin-bottom:16px}
-.zigzag .icon-wrap svg{width:22px;height:22px;stroke:var(--accent)}
-.zigzag .result{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:8px 14px;background:var(--green-soft);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--green)}
-
-@media(max-width:768px){
-  .zigzag,.zigzag:nth-child(even){grid-template-columns:1fr;gap:32px}
-  .zigzag:nth-child(even) .zigzag-img{order:-1}
-}
-
-/* Feature asymmetric grid */
-.feat{margin-top:clamp(48px,8vh,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(16px,2vw,24px)}
-.feat-card{padding:clamp(20px,3vw,32px);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);transition:border-color .2s ease,box-shadow .2s ease}
-.feat-card:hover{border-color:var(--faint);box-shadow:0 8px 30px rgba(0,0,0,.04)}
-.feat-card .icon-wrap{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);border-radius:var(--radius);margin-bottom:16px}
-.feat-card .icon-wrap svg{width:20px;height:20px;stroke:var(--accent)}
-.feat-card h4{font-size:17px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
-.feat-card p{font-size:14px;line-height:1.65}
-.feat-card code{display:inline-block;margin-top:10px;padding:3px 10px;background:var(--warm);border-radius:var(--radius-sm);font-size:12px;color:var(--muted)}
-
-/* Capability cards — 2-col zigzag for tools */
-.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
-.tools-grid .tool{background:var(--surface);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.tools-grid .tool .name{font-weight:600;font-size:14px}
-.tools-grid .tool .by{font-size:12px;color:var(--faint)}
-.tools-grid .tool .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
-.badge-green{background:var(--green-soft);color:var(--green)}
-.badge-amber{background:var(--amber-soft);color:var(--amber)}
-
-@media(max-width:768px){
-  .tools-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:480px){
-  .tools-grid{grid-template-columns:1fr}
-}
-
-/* Comparison table */
-.comp-table{max-width:860px;margin:0 auto;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;background:var(--surface)}
+section{padding:clamp(60px,12vh,120px) 0;position:relative;z-index:1}
+.section-label{font-size:11px;font-weight:700-text-transform:uppercase;letter-spacing,.15em;color:var(--accent);margin-bottom:1rem;text-align:center}
+.section-head{text-align:center;margin-bottom:clamp(2rem,4vw,3rem)}
+.section-head h2{font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:800;letter-spacing,-.02em;line-height:1.15}
+.section-head p{font-size:16px;max-width:520px;margin:1rem auto 0}
+.card-shell{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding,.375rem;transition:all .6s var(--ease)}
+.card-shell:hover{border-color:var(--border-strong);background:var(--surface-2)}
+.card-core{background:var(--bg);border-radius:calc(var(--radius-lg) - .375rem);padding:clamp(1.5rem,3vw,2.5rem);height:100%}
+.card-core .icon-wrap{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);border-radius:var(--radius);margin-bottom:1.25rem}
+.card-core .icon-wrap svg{width:22px;height:22px;stroke:var(--accent}
+.card-core h3{font-size:1.05rem;font-weight:700;margin-bottom,.5rem;letter-spacing,-.01em}
+.card-core p{font-size:13px-line-height:1.65}
+.card-core code{display:inline-block;margin-top,.75rem;padding,.25rem ,.625rem;background:var(--accent-soft);border-radius:var(--radius-sm);font-size:11px;color:var(--accent)}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
+.bento .card-shell:nth-child(1){grid-column:span 7}
+.bento .card-shell:nth-child(2){grid-column:span 5}
+.bento .card-shell:nth-child(3){grid-column:span 4}
+.bento .card-shell:nth-child(4){grid-column:span 4}
+.bento .card-shell:nth-child(5){grid-column:span 4}
+.bento .card-shell:nth-child(6){grid-column:span 6}
+@media(max-width:768px){.bento{grid-template-columns:1fr}.bento .card-shell{grid-column:span 1!important}}
+.comp-table{max-width:860px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .comp-table table{width:100%;border-collapse:collapse}
-.comp-table th{background:var(--warm);padding:14px 20px;font-size:13px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-.comp-table td{padding:14px 20px;font-size:14px;border-top:1px solid var(--line)}
-.comp-table td:first-child{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.comp-table th{background:var(--surface-2);padding:1rem 1.5rem;font-size:11px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing,.08em;color:var(--text3)}
+.comp-table td{padding:1rem 1.5rem;font-size:14px;border-top:1px solid var(--border)}
+.comp-table td:first-child{color:var(--text3);font-size:13px;font-variant-numeric:tabular-nums}
 .comp-table td:last-child{font-weight:500}
-.comp-table .old-text{text-decoration:line-through;color:var(--faint);margin-right:2px}
-
-/* Install */
-.install-box{max-width:560px;margin:0 auto;background:var(--ink);border-radius:var(--radius-lg);padding:clamp(24px,4vw,36px);box-shadow:0 20px 50px rgba(0,0,0,.12)}
-.install-box .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6c7086;margin-bottom:8px}
-.install-box code{display:block;background:#11111b;color:#cdd6f4;padding:16px 20px;border-radius:var(--radius);font-size:14px;margin-bottom:16px;border:1px solid #313244}
-.install-box .hint{font-size:13px;color:#585b70}
-
-/* 你可能要问 */
-.faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:clamp(12px,2vw,20px)}
-.faq-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(20px,3vw,28px)}
-.faq-item h4{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
-.faq-item p{font-size:14px}
-
-/* CTA */
-.cta-section{padding:clamp(60px,12vh,100px) 0}
-.cta-section h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-.02em;margin-bottom:16px;line-height:1.15}
-
-/* Footer */
-
-.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-footer{padding:40px 0;border-top:1px solid var(--line)}
-footer p{font-size:13px}
-footer a{color:var(--muted)}
-
-/* Animation: staggered reveal */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.reveal{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) backwards}
-.reveal:nth-child(1){animation-delay:.05s}
-.reveal:nth-child(2){animation-delay:.12s}
-.reveal:nth-child(3){animation-delay:.19s}
-.reveal:nth-child(4){animation-delay:.26s}
-.reveal:nth-child(5){animation-delay:.33s}
-.reveal:nth-child(6){animation-delay:.40s}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  html{scroll-behavior:auto}
-}
-
-@media(max-width:640px){
-  nav .links{display:none}
-}
+.comp-table .old{text-decoration:line-through;color:var(--text3);margin-right:4px}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.tools-grid .tool{background:var(--bg);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.tools-grid .tool .name{font-weight:600;font-size:14px}
+.tools-grid .tool .by{font-size:12px;color:var(--text3)}
+.badge{font-size:10px;font-weight:700;padding:2px 10px;border-radius:9999px;text-transform:uppercase;letter-spacing,.05em}
+.badge-full{background:var(--accent-soft);color:var(--accent)}
+.badge-readonly{background:var(--amber-soft);color:var(--amber}
+@media(max-width:768px){.tools-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.tools-grid{grid-template-columns:1fr}}
+.install-box{max-width:560px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(1.5rem,3vw,2.5rem)}
+.install-box .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing,.08em;color:var(--text3);margin-bottom,.5rem}
+.install-box code{display:block;background:#000;color:var(--green);padding:1rem 1.25rem;border-radius:var(--radius);font-size:13px;margin-bottom:1rem;border:1px solid var(--border)}
+.install-box .hint{font-size:12px;color:var(--text3)}
+.faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:1rem}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(1.25rem,2vw,2rem)}
+.faq-item h3{font-size:15px;font-weight:700;margin-bottom,.5rem;letter-spacing,-.01em}
+.faq-item p{font-size:13px}
+@media(max-width:768px){.faq-grid{grid-template-columns:1fr}}
+.cta-section{text-align:center;padding:clamp(60px,12vh,100px) 0}
+.cta-section h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing,-.02em;margin-bottom:1.5rem;line-height:1.1}
+footer{padding:2rem 0;border-top:1px solid var(--border);text-align:center;position:relative;z-index:1}
+footer p{font-size:12px}
+footer a{color:var(--text2)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration,.01ms!important;transition-duration,.01ms!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-
-<nav>
-<div class="container">
-<a href="/zh-friendly/" class="logo">
-<svg aria-hidden="true" class="svg-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="32" height="32" rx="8" fill="#0f766e"/><text x="16" y="23" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="Satoshi,sans-serif" stroke="none" letter-spacing="-1">ZH</text></svg>
-ikevss-zh-friendly
-</a>
-<div class="links">
-<a href="#features">能力</a>
-<a href="#install">安装</a>
-<a href="#faq">常见问题</a>
-<a href="https://github.com/ikevss/zh-friendly" target="_blank">GitHub <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
-</div>
-</div>
-</nav>
-
-<section class="hero">
-<div class="container">
-<div class="hero-left reveal">
-<div class="hero-tag">Agent 技能中文化</div>
-<h1>装了一堆 skill，<br>不知道是干嘛的？<br><mark>翻成中文就看懂了</mark></h1>
-<p class="hero-desc">你装的 Claude Code、TRAE、Codex、Cursor 都支持。扫一遍，英文全变中文。不改你任何文件，确认了才动手。</p>
-<div class="cta">
-<a href="#install" class="btn btn-primary">
-<svg aria-hidden="true" class="svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-立即安装
-</a>
-<a href="https://github.com/ikevss/zh-friendly" target="_blank" class="btn btn-ghost">GitHub ↗</a>
-</div>
-<div class="hero-right reveal">
-<div class="preview-box">
-<div class="line"><span class="old">Generate mermaid diagrams</span></div>
-<div class="line"><span class="arrow">→</span><span class="new">生成 Mermaid 图表 | 画流程图、架构图</span></div>
-<div class="line" style="margin-top:12px"><span class="old">Deploy the application</span></div>
-<div class="line"><span class="arrow">→</span><span class="new">部署应用 | 帮我发布、上线、deploy</span></div>
-<div class="prompt">/ikevss-zh-friendly zh<span class="cursor"></span></div>
-</div>
-</div>
-</div>
-</section>
-
-<section id="features">
-<div class="container">
-<div class="section-label reveal">你能得到什么</div>
-<div class="section-head reveal" style="margin-bottom:clamp(40px,6vh,64px)">
-<h2>六件事</h2>
-</div>
-<div class="feat reveal">
-<div class="feat-card">
-<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-<h3>英文描述 → 中文</h3>
-<p>不是机翻。是把你可能会说的中文表达加进去。比如 Deployment 不只翻译成"部署"，还会加上"帮我发布""上线""推代码"——你说哪个它都能懂。</p>
-<code>中文描述 | 英文触发词 | 口语表达</code>
-</div>
-<div class="feat-card">
-<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-<h3>斜杠菜单里，直接看中文名</h3>
-<p>自动给每个技能加一个中文显示名。以后你打开斜杠菜单，不用再猜 kebab-case 了。</p>
-</div>
-<div class="feat-card">
-<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-<h3>帮你盘点：你到底有多少能力</h3>
-<p>扫一遍你的 Claude Code、TRAE、Codex……所有工具的 skills、agents、CLI。生成一张清单，告诉 AI 你有多少本事。</p>
-<code>/ikevss-zh-friendly scan</code>
-</div>
-<div class="feat-card">
-<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-<h3>不会改坏你的东西</h3>
-<p>默认只看不碰。你确认了才改。改前自动备份。Agent 正文一个字符都不碰——多一个空格都会自动恢复。</p>
-</div>
-<div class="feat-card">
-<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="2"/><circle cx="12" cy="18" r="3"/><path d="M7 3h10a2 2 0 0 1 2 2v3H5V5a2 2 0 0 1 2-2z"/></svg></div>
-<h3>Agent 太少？帮你推荐</h3>
-<p>分析你平时用 AI 干什么，从 268 个中文人设里挑适合你的。不用自己一个个去找。</p>
-<code>/ikevss-zh-friendly scan --suggest-agents</code>
-</div>
-<div class="feat-card">
-<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
-<h3>有些技能连描述都没有</h3>
-<p>自动读它的内容，帮你生成一个中文描述。不用你手动去补。</p>
-</div>
-</div>
-</div>
-</section>
-
-<section id="demo">
-<div class="container">
-<div class="section-label reveal">翻前 vs 翻后</div>
-<div class="section-head reveal" style="margin-bottom:clamp(32px,5vh,48px)">
-<h2>同一句描述，前后长这样</h2>
-</div>
-<div class="comp-table reveal">
-<table>
-<thead><tr><th>英文原版</th><th>扩写式中文</th></tr></thead>
-<tbody>
-<tr><td>Generate mermaid diagrams</td><td>生成 Mermaid 图表 | 画流程图、时序图、架构图、mermaid、diagram</td></tr>
-<tr><td>Deploy the application to production</td><td>部署应用 | 帮我发布、上线、deploy、推代码</td></tr>
-<tr><td>Code review skill for pull requests</td><td>代码审查 | review、检查代码、帮我看看代码、code review</td></tr>
-<tr><td>Executive summary generator</td><td>高管摘要生成 | 给老板汇报、executive summary、C-suite</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-
-<section id="tools">
-<div class="container">
-<div class="section-label reveal">能扫哪些</div>
-<div class="section-head reveal" style="margin-bottom:clamp(32px,5vh,48px)">
-<h2>电脑上有哪个就扫哪个</h2>
-</div>
-<div class="tools-grid reveal">
-<div class="tool"><span class="name">Claude Code</span><span class="by">Anthropic</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">TRAE Work</span><span class="by">字节跳动</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">Codex</span><span class="by">OpenAI</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">Cursor</span><span class="by">Cursor Inc</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">OpenCode</span><span class="by">开源</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">Windsurf</span><span class="by">Codeium</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">WorkBuddy</span><span class="by">腾讯</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">OpenClaw</span><span class="by">开源</span><span class="badge badge-green">读写</span></div>
-<div class="tool"><span class="name">Antigravity</span><span class="by">Google</span><span class="badge badge-amber">只读</span></div>
-</div>
-</div>
-</section>
-
-<section id="install">
-<div class="container">
-<div class="section-label reveal">怎么开始</div>
-<div class="section-head reveal" style="margin-bottom:clamp(32px,5vh,48px)">
-<h2>就一行命令</h2>
-</div>
-<div class="install-box reveal">
-<div class="label">安装</div>
-<code>npx skills add ikevss/zh-friendly</code>
-<div class="label" style="margin-top:24px">使用</div>
-<code>/ikevss-zh-friendly zh</code>
-<div class="hint">跟前面说的一样——加了 --confirm 才动手。改前自动备份，不放心先预览。</div>
-</div>
-</div>
-</section>
-
-<section id="faq">
-<div class="container">
-<div class="section-label reveal">你可能要问</div>
-<div class="section-head reveal" style="margin-bottom:clamp(32px,5vh,48px)">
-<h2>常见问题</h2>
-</div>
-<div class="faq-grid">
-<div class="faq-item reveal"><h3>翻完还能用吗？</h3><p>能。英文关键词原样保留，额外加了你可能会说的中文表达。原来能用的继续能用，你说中文也能触发。</p></div>
-<div class="faq-item reveal"><h3>不会把我的 Agent 改坏吧？</h3><p>不会。你的 Agent 正文一个字不动。只改给人看的那一行 description。改完逐个字符校对，多一个空格都会恢复。</p></div>
-<div class="faq-item reveal"><h3>以后更新了会不会又变回英文？</h3><p>有可能。但你加 --overlay 参数就不怕——不碰原文，新加一个中文字段。更新了也丢不了。</p></div>
-<div class="faq-item reveal"><h3>我其他的 AI 工具也管吗？</h3><p>管。你装了哪个就扫哪个：TRAE Work、Codex、Cursor、Windsurf、WorkBuddy、OpenClaw。Antigravity 只读不写。</p></div>
-</div>
-</div>
-</section>
-
-
-<section id="story" style="padding:clamp(40px,6vh,64px) 0">
-<div class="container">
-<div style="max-width:640px;margin:0 auto">
-<div class="section-label reveal">一个小编的故事</div>
-<div style="background:var(--warm);border-radius:var(--radius-lg);padding:clamp(20px,3vw,28px);margin-top:16px">
-<p style="font-size:14px;line-height:1.8;color:var(--muted)">
-有一天我数了一下斜杠菜单——352 个技能，名字全是英文。<strong>每次都要点进去试一下才知道干嘛的。</strong>试对了就好，试错了白费一次。更离谱的是，AI 自己也不知道有多少能力——它连一份清单都没有。于是我写了这个工具。扫一遍，翻成中文，一眼看懂。踩过的坑都写进了 <code style="font-family:JetBrains Mono,monospace;font-size:12px;color:var(--green);background:transparent">references/</code>，五方工程师对抗性评审过。
-</p>
-</div>
-</div>
-</div>
-</section>
-<section class="cta-section" style="text-align:center">
-<div class="container">
-<h2 class="reveal">以后打开斜杠菜单<br>每个技能你都知道是干嘛的</h2>
-<div class="cta reveal" style="display:flex;justify-content:center;margin-top:32px">
-<a href="#install" class="btn btn-primary">开始使用 →</a>
-</div>
-<p class="reveal" style="margin-top:20px;font-size:13px">npx skills add ikevss/zh-friendly</p>
-</div>
-</section>
-
-<footer>
-<div class="container" style="text-align:center">
-<p>MIT © 2026 <a href="https://github.com/ikevss">ikevss</a> · <a href="https://github.com/ikevss/zh-friendly">GitHub</a> · <a href="https://www.skills.sh/">skills.sh</a></p>
-</div>
-</footer>
-
+<nav><div class="container"><a href="/zh-friendly/" class="logo"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="0" y="0" width="32" height="32" rx="8" fill="#0f766e"/><text x="16" y="23" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="Plus Jakarta Sans,sans-serif" stroke="none" letter-spacing="-1">ZH</text></svg>Agent 技能中文化</a><div class="links"><a href="#features">能力</a><a href="#install">安装</a><a href="#faq">常见问题</a><a href="https://github.com/ikevss/zh-friendly" target="_blank">GitHub</a></div></div></nav>
+<section class="hero"><div class="container reveal"><div class="hero-tag">Agent 技能中文化</div><h1>装了一堆 skill，<br>不知道是干嘛的？<br><mark>翻成中文就看懂了</mark></h1><p class="hero-desc">你装的 Claude Code、TRAE、Codex、Cursor 都支持。扫一遍，英文全变中文。不改你任何文件，确认了才动手。</p><div class="cta"><a href="#install" class="btn btn-primary">立即安装<span class="icon-wrap"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a><a href="https://github.com/ikevss/zh-friendly" target="_blank" class="btn btn-ghost">GitHub</a></div><div class="hero-demo"><div class="preview-box"><div class="line"><span class="old">Generate mermaid diagrams</span></div><div class="line"><span class="arrow">→</span><span class="new">生成 Mermaid 图表 | 画流程图、架构图</span></div><div class="line" style="margin-top:12px"><span class="old">Deploy the application</span></div><div class="line"><span class="arrow">→</span><span class="new">部署应用 | 帮我发布、上线、deploy</span></div><div class="prompt">/ikevss-zh-friendly zh<span class="cursor"></span></div></div></div></div></section>
+<section id="features"><div class="container"><div class="section-label reveal">你能得到什么</div><div class="section-head reveal"><h2>六件事</h2></div><div class="bento"><div class="card-shell reveal"><div class="card-core"><div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>英文描述 → 中文</h3><p>不是机翻。是把你可能会说的中文表达加进去。比如 Deployment 不只翻译成"部署"，还会加上"帮我发布""上线""推代码"——你说哪个它都能懂。</p><code>中文描述 | 英文触发词 | 口语表达</code></div></div><div class="card-shell reveal"><div class="card-core"><div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><h3>斜杠菜单里，直接看中文名</h3><p>自动给每个技能加一个中文显示名。以后你打开斜杠菜单，不用再猜 kebab-case 了。</p></div></0>
+</div></div></section>
+<section id="demo"><div class="container"><div class="section-label reveal">翻前 vs 翻后</div><div class="section-head reveal"><h2>同一句描述，前后长这样</h2></div><div class="comp-table reveal"><table><thead><tr><th>英文原版</th><th>翻成中文后</th></tr></thead><tbody><tr><td>Generate mermaid diagrams</td><td>生成 Mermaid 图表 | 画流程图、架构图、mermaid、diagram</td></tr><tr><td>Deploy the application to production</td><td>部署应用 | 帮我发布、上线、deploy、推代码</td></tr><tr><td>Code review skill for pull requests</td><td>代码审查 | review、检查代码、帮我看看代码、code review</td></tr><tr><td>Executive summary generator</td><td>高管摘要生成 | 给老板汇报、executive summary、C-suite</td></tr></tbody></table></div></div></section>
+<section id="tools"><div class="container"><div class="section-label reveal">能扫哪些</div><div class="section-head reveal"><h2>电脑上有哪个就扫哪个</h2></div><div class="tools-grid reveal"><div class="tool"><span class="name">Claude Code</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">TRAE Work</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">Codex</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">Cursor</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">OpenCode</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">Windsurf</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">WorkBuddy</span><span class="badge badge-full">读写</span></div><div class="tool"><span class="name">Antigravity</span><span class="badge badge-readonly">只读</span></div></div></div></section>
+<section id="install"><div class="container"><div class="section-label reveal">好了怎么开始</div><div class="section-head reveal"><h2>就一行命令</h2></div><div class="install-box reveal"><div class="label">安装</div><code>npx skills add ikevss/zh-friendly</code><div class="label" style="margin-top:1rem">使用</div><code>/ikevss-zh-friendly zh</code><div class="hint">默认只预览不改文件。确认没问题加 --confirm</div></div></div></section>
+<section id="faq"><div class="container"><div class="section-label reveal">你可能要问</div><div class="section-head reveal"><h2>常见问题</h2></div><div class="faq-grid reveal"><div class="faq-item"><h3>汉化后技能还能正常触发吗？</h3><p>能。翻译时保留英文关键词，额外加了中文口语表达。原来能用的继续能用，你说中文也能触发。</p></div><div class="faq-item"><h3>会不会改坏我的 Agent？</h3><p>不会。Agent 文件的 System Prompt 正文一个字不动，只改给人看的 description。改完逐字符校验。</p></div><div class="faq-item"><h3>更新了工具会不会覆盖汉化？</h3><p>marketplace 来源的可能会。加 --overlay 参数可以不改原 description，新增 description_zh 字段。</p></div><div class="faq-item"><h3>只想汉化某个工具？</h3><p>加 --scope 参数：/ikevss-zh-friendly zh --scope trae</p></div></div></div></section>
+<section class="cta-section"><div class="container"><h2 class="reveal">以后打开斜杠菜单<br>每个技能你都知道是干嘛的</h2><div class="cta reveal" style="display:flex;justify-content:center;margin-top:32px"><a href="#install" class="btn btn-primary">开始使用 →</a></div></div></section>
+<footer><div class="container"><p>MIT © 2026 <a href="https://github.com/ikevss">ikevss</a> · <a href="https://github.com/ikevss/zh-friendly">GitHub</a> · <a href="https://www.skills.sh/">skills.sh</a></p></div></footer>
+<script>const o=new IntersectionObserver(e=>{e.forEach(t=>{t.isIntersecting&&(t.target.classList.add("visible"),o.unobserve(t.target))})});document.querySelectorAll(".reveal").forEach(el=>o.observe(el))</script>
 </body>
 </html>
