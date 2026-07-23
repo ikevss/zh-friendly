@@ -1,6 +1,6 @@
 ---
 name: ikevss-zh-friendly
-description: "你装了一堆 AI 技能，但名字全是英文，不知道哪个是干嘛的？这个技能帮你一键翻译成中文，一眼看懂每个技能是干嘛的。当你想说'这些英文技能看不懂''我装了哪些技能？''AI 到底能做什么？''Agent 太少了，推荐几个''有些技能连描述都没有'时，它就会自动触发。支持 Claude Code、TRAE Work、Codex、Cursor、Windsurf、WorkBuddy、OpenClaw 等 13+ AI 工具。默认只预览不改文件，确认了才动手。"
+description: "你装了一堆 AI 技能，但名字全是英文，不知道哪个是干嘛的？这个技能帮你一键翻译成中文，一眼看懂每个技能是干嘛的。扫描环境后生成能力清单，让 AI 知道你有哪些技能和工具，多智能体协作时每个 agent 都能看清全局。当用户没设置 agent 或 agent 太少时，根据已有的技能和工具推荐合适的人设。支持 Claude Code、TRAE Work、Codex、Cursor 等 13+ AI 工具。默认只预览不改文件，确认了才动手。"
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 ---
 
