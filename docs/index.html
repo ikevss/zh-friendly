@@ -54,9 +54,9 @@ nav .links a:hover{color:var(--ink)}
 
 /* Hero — asymmetric split, left-aligned */
 .hero{padding:clamp(100px,16vh,160px) 0 clamp(60px,10vh,100px)}
-.hero .container{display:flex;flex-wrap:nowrap;gap:clamp(32px,6vw,64px);align-items:center}
-.hero .hero-left{flex:1 1 48%;min-width:0}
-.hero .hero-right{flex:1 1 48%;min-width:0;display:flex;justify-content:flex-end}
+.hero .container{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,80px);align-items:center}
+.hero .hero-left{min-width:0}
+.hero .hero-right{min-width:0;display:flex;justify-content:flex-end}
 .hero .hero-left{}
 .hero .hero-tag{margin-bottom:16px;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--accent-soft);color:var(--accent);border-radius:20px;font-size:13px;font-weight:600;letter-spacing:.02em}
 .hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:900;letter-spacing:-.025em;line-height:1.08;margin-bottom:24px;color:var(--ink)}
@@ -82,7 +82,7 @@ nav .links a:hover{color:var(--ink)}
 .hero .stats b{display:block;font-size:clamp(22px,3vw,28px);color:var(--ink);font-weight:700;letter-spacing:-.02em}
 
 @media(max-width:768px){
-  .hero .container{flex-wrap:nowrap;gap:48px}
+  .hero .container{grid-template-columns:1fr;gap:48px}
   .hero .hero-right{order:-1}
   .hero .stats{flex-wrap:wrap;gap:20px}
   .preview-box{max-width:100%}
@@ -160,6 +160,9 @@ section{padding:clamp(56px,10vh,96px) 0}
 .cta-section h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-.02em;margin-bottom:16px;line-height:1.15}
 
 /* Footer */
+
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 footer{padding:40px 0;border-top:1px solid var(--line)}
 footer p{font-size:13px}
 footer a{color:var(--muted)}
@@ -189,14 +192,14 @@ footer a{color:var(--muted)}
 <nav>
 <div class="container">
 <a href="/zh-friendly/" class="logo">
-<svg class="svg-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="32" height="32" rx="8" fill="#0f766e"/><text x="16" y="23" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="Satoshi,sans-serif" stroke="none" letter-spacing="-1">ZH</text></svg>
+<svg aria-hidden="true" class="svg-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="32" height="32" rx="8" fill="#0f766e"/><text x="16" y="23" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="Satoshi,sans-serif" stroke="none" letter-spacing="-1">ZH</text></svg>
 ikevss-zh-friendly
 </a>
 <div class="links">
 <a href="#features">能力</a>
 <a href="#install">安装</a>
 <a href="#faq">常见问题</a>
-<a href="https://github.com/ikevss/ikevss-zh-friendly" target="_blank">GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+<a href="https://github.com/ikevss/ikevss-zh-friendly" target="_blank">GitHub <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
 </div>
 </div>
 </nav>
@@ -209,7 +212,7 @@ ikevss-zh-friendly
 <p class="hero-desc">你装的 Claude Code、TRAE、Codex、Cursor 都支持。扫一遍，英文全变中文。不改你任何文件，确认了才动手。</p>
 <div class="cta">
 <a href="#install" class="btn btn-primary">
-<svg class="svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+<svg aria-hidden="true" class="svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
 立即安装
 </a>
 <a href="https://github.com/ikevss/ikevss-zh-friendly" target="_blank" class="btn btn-ghost">GitHub ↗</a>
@@ -234,36 +237,36 @@ ikevss-zh-friendly
 </div>
 <div class="feat reveal">
 <div class="feat-card">
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-<h4>英文描述 → 中文</h4>
+<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+<h3>英文描述 → 中文</h3>
 <p>不是机翻。是把你可能会说的中文表达加进去。比如 Deployment 不只翻译成"部署"，还会加上"帮我发布""上线""推代码"——你说哪个它都能懂。</p>
 <code>中文描述 | 英文触发词 | 口语表达</code>
 </div>
 <div class="feat-card">
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-<h4>斜杠菜单里，直接看中文名</h4>
+<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+<h3>斜杠菜单里，直接看中文名</h3>
 <p>自动给每个技能加一个中文显示名。以后你打开斜杠菜单，不用再猜 kebab-case 了。</p>
 </div>
 <div class="feat-card">
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-<h4>帮你盘点：你到底有多少能力</h4>
+<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+<h3>帮你盘点：你到底有多少能力</h3>
 <p>扫一遍你的 Claude Code、TRAE、Codex……所有工具的 skills、agents、CLI。生成一张清单，告诉 AI 你有多少本事。</p>
 <code>/ikevss-zh-friendly scan</code>
 </div>
 <div class="feat-card">
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-<h4>不会改坏你的东西</h4>
+<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+<h3>不会改坏你的东西</h3>
 <p>默认只看不碰。你确认了才改。改前自动备份。Agent 正文一个字符都不碰——多一个空格都会自动恢复。</p>
 </div>
 <div class="feat-card">
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="2"/><circle cx="12" cy="18" r="3"/><path d="M7 3h10a2 2 0 0 1 2 2v3H5V5a2 2 0 0 1 2-2z"/></svg></div>
-<h4>Agent 太少？帮你推荐</h4>
+<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="2"/><circle cx="12" cy="18" r="3"/><path d="M7 3h10a2 2 0 0 1 2 2v3H5V5a2 2 0 0 1 2-2z"/></svg></div>
+<h3>Agent 太少？帮你推荐</h3>
 <p>分析你平时用 AI 干什么，从 268 个中文人设里挑适合你的。不用自己一个个去找。</p>
 <code>/ikevss-zh-friendly scan --suggest-agents</code>
 </div>
 <div class="feat-card">
-<div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
-<h4>有些技能连描述都没有</h4>
+<div class="icon-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+<h3>有些技能连描述都没有</h3>
 <p>自动读它的内容，帮你生成一个中文描述。不用你手动去补。</p>
 </div>
 </div>
@@ -333,10 +336,10 @@ ikevss-zh-friendly
 <h2>常见问题</h2>
 </div>
 <div class="faq-grid">
-<div class="faq-item reveal"><h4>翻完还能用吗？</h4><p>能。英文关键词原样保留，额外加了你可能会说的中文表达。原来能用的继续能用，你说中文也能触发。</p></div>
-<div class="faq-item reveal"><h4>不会把我的 Agent 改坏吧？</h4><p>不会。你的 Agent 正文一个字不动。只改给人看的那一行 description。改完逐个字符校对，多一个空格都会恢复。</p></div>
-<div class="faq-item reveal"><h4>以后更新了会不会又变回英文？</h4><p>有可能。但你加 --overlay 参数就不怕——不碰原文，新加一个中文字段。更新了也丢不了。</p></div>
-<div class="faq-item reveal"><h4>我其他的 AI 工具也管吗？</h4><p>管。你装了哪个就扫哪个：TRAE Work、Codex、Cursor、Windsurf、WorkBuddy、OpenClaw。Antigravity 只读不写。</p></div>
+<div class="faq-item reveal"><h3>翻完还能用吗？</h3><p>能。英文关键词原样保留，额外加了你可能会说的中文表达。原来能用的继续能用，你说中文也能触发。</p></div>
+<div class="faq-item reveal"><h3>不会把我的 Agent 改坏吧？</h3><p>不会。你的 Agent 正文一个字不动。只改给人看的那一行 description。改完逐个字符校对，多一个空格都会恢复。</p></div>
+<div class="faq-item reveal"><h3>以后更新了会不会又变回英文？</h3><p>有可能。但你加 --overlay 参数就不怕——不碰原文，新加一个中文字段。更新了也丢不了。</p></div>
+<div class="faq-item reveal"><h3>我其他的 AI 工具也管吗？</h3><p>管。你装了哪个就扫哪个：TRAE Work、Codex、Cursor、Windsurf、WorkBuddy、OpenClaw。Antigravity 只读不写。</p></div>
 </div>
 </div>
 </section>
