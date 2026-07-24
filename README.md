@@ -61,25 +61,36 @@
 
 ---
 
-## 30 秒开始
+## 安装
 
-```bash
+这个技能需要装在 **Claude Code** 里。如果你还没有 Claude Code，先装它：
+
+```
+# 在终端里执行这行命令
+npm install -g @anthropic-ai/claude-code
+```
+
+装好 Claude Code 后，在终端里执行这一行：
+
+```
 npx skills add ikevss/zh-friendly
 ```
 
-装完直接跟 AI 说：
+按回车等几秒钟，看到「Installed 1 skill」就是装好了。
+
+然后打开 Claude Code，跟它说：
 
 ```
 帮我把这些英文技能翻译成中文
 ```
 
-或者精确一点：
+或者直接输入斜杠命令：
 
 ```
 /ikevss-zh-friendly zh
 ```
 
-**默认只看不改。** 确认没问题再 `--confirm`。
+**第一次用建议先用 `zh`（默认只预览不改文件），看看效果没问题了再加 `--confirm`。**
 
 ---
 
